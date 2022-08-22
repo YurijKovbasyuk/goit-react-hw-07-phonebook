@@ -25,8 +25,7 @@ export const contactSlice = createSlice({
     builder.addMatcher(
       contactsApi.endpoints.getContacts.matchFulfilled,
       (state, { payload }) => {
-        console.log(state.contacts);
-        state.contacts = payload;
+        state.value = payload;
       }
     );
   },

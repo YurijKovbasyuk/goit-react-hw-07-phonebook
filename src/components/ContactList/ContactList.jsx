@@ -18,15 +18,8 @@ function ContactList() {
     <div>
       <ul className={styles.cont}>
         {visibleContacts.map(contact => {
-          const { createdAt, phone, name } = contact;
-          return (
-            <Contact
-              key={createdAt}
-              number={phone}
-              name={name}
-              id={createdAt}
-            />
-          );
+          const { id, phone, name } = contact;
+          return <Contact key={id} number={phone} name={name} id={id} />;
         })}
       </ul>
     </div>
