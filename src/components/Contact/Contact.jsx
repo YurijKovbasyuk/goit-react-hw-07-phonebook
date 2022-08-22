@@ -6,7 +6,7 @@ import { useDeleteContactMutation } from 'redux/contactsApi';
 // import { contactSlice } from 'redux/contacts';
 
 function Contact({ id, number, name }) {
-  const [deleteContact, response] = useDeleteContactMutation();
+  const [deleteContact, { isLoading }] = useDeleteContactMutation();
   // const dispatch = useDispatch();
 
   // const deleteContact = () => {
@@ -15,7 +15,11 @@ function Contact({ id, number, name }) {
   return (
     <li className={styles.li}>
       {name + ': ' + number}
-      <button className={styles.button} onClick={() => deleteContact(id)}>
+      <button
+        className={styles.button}
+        onClick={() => deleteContact(id)}
+        disabled={isLoading}
+      >
         Delete
       </button>
     </li>
