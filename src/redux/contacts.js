@@ -17,9 +17,9 @@ export const contactSlice = createSlice({
     setContacts: (state, { payload }) => {
       state.value = [...state.value, payload];
     },
-    deleteContacts: (state, { payload }) => {
-      state.value = state.value.filter(contact => contact.id !== payload);
-    },
+    // deleteContacts: (state, { payload }) => {
+    //   state.value = state.value.filter(contact => contact.id !== payload);
+    // },
   },
   extraReducers: builder => {
     builder.addMatcher(
