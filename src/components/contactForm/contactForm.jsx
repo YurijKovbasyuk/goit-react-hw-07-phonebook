@@ -1,21 +1,19 @@
 import { useState } from 'react';
-import { nanoid } from 'nanoid';
 import styles from './contactForm.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-// import { setContacts } from '../../redux/contacts';
-import { useAddContactMutation } from '../../redux/contactsApi';
+import {
+  useAddContactMutation,
+  useGetContactsQuery,
+} from '../../redux/contactsApi';
 
 const ContactForm = () => {
   const [addContact, { isLoading }] = useAddContactMutation();
-  const dispatch = useDispatch();
-  // console.log(isLoading);
+  const { data: contacts } = useGetContactsQuery();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const contacts = useSelector(state => state.contacts.value);
 
   const handleSubmit = e => {
-    let loginInputId = nanoid();
     e.preventDefault();
+
     const normalizedName = name.toLowerCase();
     const checkedForName = contacts.some(
       contact => normalizedName === contact.name.toLowerCase()
@@ -24,7 +22,7 @@ const ContactForm = () => {
     if (checkedForName) {
       return alert(`${name} is already in contacts`);
     }
-    dispatch(addContact({ id: loginInputId, name: name, phone: phone }));
+    addContact({ name, phone });
 
     reset();
   };
@@ -50,7 +48,7 @@ const ContactForm = () => {
         break;
     }
   };
-  // onClick={() => addContact()}
+
   return (
     <div className={styles.form}>
       <form onSubmit={handleSubmit}>
@@ -69,7 +67,7 @@ const ContactForm = () => {
         </label>
         <br />
         <label htmlFor="">
-          Phone number
+          Number
           <input
             onChange={handleChange}
             type="tel"

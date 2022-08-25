@@ -4,11 +4,8 @@ import { useSelector } from 'react-redux';
 import { useGetContactsQuery } from '../../redux/contactsApi';
 
 function ContactList() {
-  // const contacts = useSelector(state => state.contacts.value);
-  // const contacts = [];
   const { data: contacts = [] } = useGetContactsQuery();
-
-  const filter = useSelector(state => state.filter.value);
+  const filter = useSelector(state => state.filter.filter);
 
   const visibleContacts = contacts.filter(contact =>
     contact.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
@@ -17,8 +14,7 @@ function ContactList() {
   return (
     <div>
       <ul className={styles.cont}>
-        {visibleContacts.map(contact => {
-          const { id, phone, name } = contact;
+        {visibleContacts.map(({ id, phone, name }) => {
           return <Contact key={id} number={phone} name={name} id={id} />;
         })}
       </ul>
